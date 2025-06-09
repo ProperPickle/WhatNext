@@ -60,5 +60,8 @@ window.onload = window.onresize = function() {
         ctx.strokeText(topText, middle, window.innerHeight*.15, 720);
         ctx.strokeText("What's next?", middle, window.innerHeight*.78);
         ctx.strokeText(bottomText, middle, window.innerHeight*.85,720);
+
+        //Update Title
+        document.title = topText;
     };
 };
