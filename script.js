@@ -1,17 +1,17 @@
-window.onload = function() {
+window.onload = window.onresize = function() {
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
 
     // Set canvas size (optional, can match image size)
-    canvas.width = 756;
-    canvas.height = 1008;
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerHeight*.75;
     const middle = canvas.width/2;
 
     // Create an image object
     const img = new Image();
 
-    // Set the image source (use your own image)
-    img.src = 'https://i.imgur.com/yu3yUJ0.jpeg'; // <-- CHANGE THIS TO YOUR IMAGE PATH
+    // Set the image source
+    img.src = 'https://i.imgur.com/yu3yUJ0.jpeg';
 
     // When image loads, draw it and overlay text
     img.onload = function() {
@@ -48,17 +48,17 @@ window.onload = function() {
         // Construct and Overlay text
         const topText = "Damn it's "+month+' '+today+' already?';
         const bottomText = month+' '+tmrw+'? Fuck everything.';
-        ctx.font = '60px Impact';
+        ctx.font = .08 * canvas.width + 'px Impact';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
-        ctx.fillText(topText, middle, 150, 720);
-        ctx.fillText("What's next?", middle, 840);
-        ctx.fillText(bottomText, middle, 900,720);
+        ctx.fillText(topText, middle, window.innerHeight*.15, 720);
+        ctx.fillText("What's next?", middle, window.innerHeight*.78);
+        ctx.fillText(bottomText, middle, window.innerHeight*.85,720);
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth=2;
-        ctx.strokeText(topText, middle, 150, 720);
-        ctx.strokeText("What's next?", middle, 840);
-        ctx.strokeText(bottomText, middle, 900,720);
+        ctx.strokeText(topText, middle, window.innerHeight*.15, 720);
+        ctx.strokeText("What's next?", middle, window.innerHeight*.78);
+        ctx.strokeText(bottomText, middle, window.innerHeight*.85,720);
     };
 };
