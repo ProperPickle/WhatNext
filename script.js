@@ -51,16 +51,16 @@ window.onload = window.onresize = function() {
         ctx.font = .08 * canvas.width + 'px Impact';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
-        ctx.fillText(topText, middle, window.innerHeight*.15, 720);
+        ctx.fillText(topText, middle, window.innerHeight*.15, window.innerWidth*.8);
         ctx.fillText("What's next?", middle, window.innerHeight*.78);
-        ctx.fillText(bottomText, middle, window.innerHeight*.85,720);
+        ctx.fillText(bottomText, middle, window.innerHeight*.85,window.innerWidth*.8);
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth=2;
-        ctx.strokeText(topText, middle, window.innerHeight*.15, 720);
+        ctx.strokeText(topText, middle, window.innerHeight*.15, window.innerWidth*.8);
         ctx.strokeText("What's next?", middle, window.innerHeight*.78);
-        ctx.strokeText(bottomText, middle, window.innerHeight*.85,720);
-
+        ctx.strokeText(bottomText, middle, window.innerHeight*.85,window.innerWidth*.8);
+        
         //Update Title
         document.title = topText;
     };
