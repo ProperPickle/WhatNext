@@ -3,9 +3,7 @@ import os # default module
 import io
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from PIL import Image
 from dotenv import load_dotenv
-import asyncio
 import time
 
 load_dotenv() # load all the variables from the env file
@@ -26,7 +24,7 @@ async def commentary(ctx: discord.ApplicationContext):
 
     # Configure Chrome options for headless mode
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=2560,1440")
 
@@ -38,8 +36,8 @@ async def commentary(ctx: discord.ApplicationContext):
         screenshot_bytes = canvas_element.screenshot_as_png
         image_buffer = io.BytesIO(screenshot_bytes)
         image_buffer.seek(0)
-        #await asyncio.sleep(1)  # Simulate a delay (optional, just for testing)
         await ctx.followup.send(file=discord.File(image_buffer, 'what_next.png'))
+        image_buffer.close()
     except Exception as e:
         await ctx.followup.send(f"Error: {str(e)}")
     finally:
