@@ -17,10 +17,10 @@ async def on_ready():
 
 @bot.slash_command(name="hello", description="Say hello to the bot")
 async def hello(ctx: discord.ApplicationContext):
-    await ctx.respond("Hey!")
+    await ctx.respond("Oh man I sure do wonder what day it is.")
 
-@bot.slash_command(name="imagetest", description="Test image sending")
-async def imagetest(ctx: discord.ApplicationContext):
+@bot.slash_command(name="commentary", description="Get some delightful contemporary commentary from the bot.")
+async def commentary(ctx: discord.ApplicationContext):
 
     await ctx.response.defer()
 
@@ -28,10 +28,9 @@ async def imagetest(ctx: discord.ApplicationContext):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--force-device-scale-factor=1")
+    chrome_options.add_argument("--window-size=2560,1440")
 
     driver = webdriver.Chrome(options=chrome_options)
-    driver.set_window_size(1200, 800)
     try:
         driver.get("https://properpickle.github.io/WhatNext/")
         time.sleep(1)
@@ -40,7 +39,7 @@ async def imagetest(ctx: discord.ApplicationContext):
         image_buffer = io.BytesIO(screenshot_bytes)
         image_buffer.seek(0)
         #await asyncio.sleep(1)  # Simulate a delay (optional, just for testing)
-        await ctx.followup.send(file=discord.File(image_buffer, 'cool_image.png'))
+        await ctx.followup.send(file=discord.File(image_buffer, 'what_next.png'))
     except Exception as e:
         await ctx.followup.send(f"Error: {str(e)}")
     finally:
