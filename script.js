@@ -52,13 +52,13 @@ window.onload = function() {
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
         ctx.fillText(topText, middle, 150, 720);
-        ctx.fillText("What's next?", middle, 840, 720);
-        ctx.fillText(bottomText, middle, 900);
+        ctx.fillText("What's next?", middle, 840);
+        ctx.fillText(bottomText, middle, 900,720);
 
         ctx.strokeStyle = 'black';
         ctx.lineWidth=2;
         ctx.strokeText(topText, middle, 150, 720);
-        ctx.strokeText("What's next?", middle, 840, 720);
-        ctx.strokeText(bottomText, middle, 900);
+        ctx.strokeText("What's next?", middle, 840);
+        ctx.strokeText(bottomText, middle, 900,720);
     };
 };
