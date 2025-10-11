@@ -48,19 +48,67 @@ window.onload = window.onresize = function() {
         // Construct and Overlay text
         const topText = "Damn it's "+month+' '+today+' already?';
         const bottomText = month+' '+tmrw+'? Fuck everything.';
-        ctx.font = .08 * canvas.width + 'px Impact';
+
+        // base font size (proportional to canvas width)
+        let fontSize = 0.08 * canvas.width; // px
+        const minFontSize = 12; // px - don't go below this
+        const padding = 20; // px - left/right padding inside canvas
+
+        // helper to set font from size
+        function setFont(size) {
+            ctx.font = size + 'px Impact';
+        }
+
         ctx.textAlign = 'center';
         ctx.fillStyle = 'white';
-        ctx.fillText(topText, middle, window.innerHeight*.15, window.innerWidth*.8);
-        ctx.fillText("What's next?", middle, window.innerHeight*.78);
-        ctx.fillText(bottomText, middle, window.innerHeight*.85,window.innerWidth*.8);
 
+        // Fit a given text to the canvas by reducing font size until it fits.
+        // Returns the final font size used.
+        function fitTextToWidth(text, maxWidth, startSize) {
+            let size = startSize;
+            setFont(size);
+            // measureText gives width in pixels
+            let metrics = ctx.measureText(text);
+            let textWidth = metrics.width;
+
+            // Reduce size until it fits or we hit minFontSize
+            while (textWidth + padding > maxWidth && size > minFontSize) {
+                size = Math.max(minFontSize, size - 2);
+                setFont(size);
+                metrics = ctx.measureText(text);
+                textWidth = metrics.width;
+            }
+            return size;
+        }
+
+        // Fit top and bottom text separately (the center line "What's next?" we keep default size)
+        const topFont = fitTextToWidth(topText, canvas.width, fontSize);
+        setFont(topFont);
+        ctx.fillText(topText, middle, window.innerHeight*.15);
+
+        // middle line
+        const midFont = Math.max(minFontSize, fontSize * 0.9);
+        setFont(midFont);
+        ctx.fillText("What's next?", middle, window.innerHeight*.78);
+
+        // bottom line
+        const bottomFont = fitTextToWidth(bottomText, canvas.width, fontSize);
+        setFont(bottomFont);
+        ctx.fillText(bottomText, middle, window.innerHeight*.85);
+
+        // strokes (use same fonts as fills)
         ctx.strokeStyle = 'black';
-        ctx.lineWidth=2;
-        ctx.strokeText(topText, middle, window.innerHeight*.15, window.innerWidth*.8);
+        ctx.lineWidth = 2;
+
+        setFont(topFont);
+        ctx.strokeText(topText, middle, window.innerHeight*.15);
+
+        setFont(midFont);
         ctx.strokeText("What's next?", middle, window.innerHeight*.78);
-        ctx.strokeText(bottomText, middle, window.innerHeight*.85,window.innerWidth*.8);
-        
+
+        setFont(bottomFont);
+        ctx.strokeText(bottomText, middle, window.innerHeight*.85);
+
         //Update Title
         document.title = topText;
     };
